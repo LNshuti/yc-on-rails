@@ -1,6 +1,6 @@
 **YC-On-Rails: Cloud-Based Startup Incubation Platform**
 
-This project will showcase your proficiency in managing and evolving the shared infrastructure for web applications. The goal is to create a robust, scalable and secure web application to provide services for startup founders. This application will allow startups to apply for funding, track progress, receive feedback, and collaborate with mentors.
+The goal is to create a robust, scalable and secure web application to provide services for startup founders. This application will allow startups to apply for funding, track progress, receive feedback, and collaborate with mentors.
 
 **Objective:**
 
@@ -31,5 +31,3 @@ The main objective of this project is to build a secure, scalable, and maintaina
 3. **Documentation:** Comprehensive documentation of the infrastructure design, application architecture, deployment process, and developer tools. 
 
 4. **Security Audit Report:** A report from a penetration testing exercise against your applications.
-
-This project will display a broad range of skills, including web application development, infrastructure management, debugging, security management, and improving developer experience and productivity. It also incorporates the use of modern tools and technologies like AWS, Docker, Terraform, Ruby on Rails, and React.
