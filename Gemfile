@@ -30,6 +30,8 @@ gem 'aws-sdk', '~> 3.0'
 # Terraform for Ruby
 gem 'ruby_terraform'
 
+gem 'nokogiri'
+
 # Use Active Model has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
