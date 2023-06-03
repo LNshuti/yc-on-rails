@@ -34,5 +34,3 @@ The main objective of this project is to build a secure, scalable, and maintaina
 
 
 # Architecture
-
-![image](https://github.com/LNshuti/yc-on-rails/assets/13305262/0f911326-ff4f-41ed-ad62-dcfbc6c928ca)
