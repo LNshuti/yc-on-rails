@@ -31,3 +31,6 @@ The main objective of this project is to build a secure, scalable, and maintaina
 3. **Documentation:** Comprehensive documentation of the infrastructure design, application architecture, deployment process, and developer tools. 
 
 4. **Security Audit Report:** A report from a penetration testing exercise against your applications.
+
+
+# Architecture
