@@ -1,13 +1,8 @@
 name: yc-ruby
 channels:
   - conda-forge
-  - nvidia
-  - pytorch
 dependencies:
   - python=3.10
-  - pytorch
-  - torchvision
-  - torchaudio 
   - pip
   - pip:
     - deepspeed
