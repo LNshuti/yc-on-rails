@@ -1,0 +1,16 @@
+myapp/app filter=lfs diff=lfs merge=lfs -text
+myapp/config.ru filter=lfs diff=lfs merge=lfs -text
+myapp/log filter=lfs diff=lfs merge=lfs -text
+myapp/vendor filter=lfs diff=lfs merge=lfs -text
+myapp/lib filter=lfs diff=lfs merge=lfs -text
+myapp/tmp filter=lfs diff=lfs merge=lfs -text
+myapp/db filter=lfs diff=lfs merge=lfs -text
+myapp/Gemfile filter=lfs diff=lfs merge=lfs -text
+myapp/Gemfile.lock filter=lfs diff=lfs merge=lfs -text
+myapp/public filter=lfs diff=lfs merge=lfs -text
+myapp/README.md filter=lfs diff=lfs merge=lfs -text
+myapp/test filter=lfs diff=lfs merge=lfs -text
+myapp/bin filter=lfs diff=lfs merge=lfs -text
+myapp/config filter=lfs diff=lfs merge=lfs -text
+myapp/Rakefile filter=lfs diff=lfs merge=lfs -text
+myapp/storage filter=lfs diff=lfs merge=lfs -text
