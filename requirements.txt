@@ -1,1 +1,5 @@
-ruby
+Django
+psycopg2
+gunicorn
+boto3
+django-storages
