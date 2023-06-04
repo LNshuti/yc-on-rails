@@ -1,60 +1,55 @@
-from __future__ import absolute_import, division, print_function
+# Start with installing the necessary packages (add these to your requirements.txt)
+# django==3.2
+# stripe==2.55.0
 
 import os
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse
+from django.views import View
 
 import stripe
-from flask import Flask, request, redirect
 
+stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+stripe.client_id = os.getenv("STRIPE_CLIENT_ID")
 
-stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
-stripe.client_id = os.environ.get("STRIPE_CLIENT_ID")
+# In your views.py
 
-app = Flask(__name__)
+class IndexView(View):
+    def get(self, request, *args, **kwargs):
+        return HttpResponse('<a href="{url}">Connect with Stripe</a>'.format(url=reverse('authorize')))
 
+class AuthorizeView(View):
+    def get(self, request, *args, **kwargs):
+        url = stripe.OAuth.authorize_url(scope="read_only")
+        return HttpResponseRedirect(url)
 
-@app.route("/")
-def index():
-    return '<a href="/authorize">Connect with Stripe</a>'
+class CallbackView(View):
+    def get(self, request, *args, **kwargs):
+        code = request.GET.get("code")
+        try:
+            resp = stripe.OAuth.token(grant_type="authorization_code", code=code)
+        except stripe.oauth_error.OAuthError as e:
+            return HttpResponse("Error: " + str(e))
+        return render(request, "callback.html", {'stripe_user_id': resp["stripe_user_id"]})
 
+class DeauthorizeView(View):
+    def get(self, request, *args, **kwargs):
+        stripe_user_id = request.GET.get("stripe_user_id")
+        try:
+            stripe.OAuth.deauthorize(stripe_user_id=stripe_user_id)
+        except stripe.oauth_error.OAuthError as e:
+            return HttpResponse("Error: " + str(e))
+        return render(request, "deauthorize.html", {'stripe_user_id': stripe_user_id})
 
-@app.route("/authorize")
-def authorize():
-    url = stripe.OAuth.authorize_url(scope="read_only")
-    return redirect(url)
+# In your urls.py
 
+from django.urls import path
+from .views import IndexView, AuthorizeView, CallbackView, DeauthorizeView
 
-@app.route("/oauth/callback")
-def callback():
-    code = request.args.get("code")
-    try:
-        resp = stripe.OAuth.token(grant_type="authorization_code", code=code)
-    except stripe.oauth_error.OAuthError as e:
-        return "Error: " + str(e)
-
-    return """
-<p>Success! Account <code>{stripe_user_id}</code> is connected.</p>
-<p>Click <a href="/deauthorize?stripe_user_id={stripe_user_id}">here</a> to
-disconnect the account.</p>
-""".format(
-        stripe_user_id=resp["stripe_user_id"]
-    )
-
-
-@app.route("/deauthorize")
-def deauthorize():
-    stripe_user_id = request.args.get("stripe_user_id")
-    try:
-        stripe.OAuth.deauthorize(stripe_user_id=stripe_user_id)
-    except stripe.oauth_error.OAuthError as e:
-        return "Error: " + str(e)
-
-    return """
-<p>Success! Account <code>{stripe_user_id}</code> is disconnected.</p>
-<p>Click <a href="/">here</a> to restart the OAuth flow.</p>
-""".format(
-        stripe_user_id=stripe_user_id
-    )
-
-
-if __name__ == "__main__":
-    app.run(port=int(os.environ.get("PORT", 5000)))
+urlpatterns = [
+    path('', IndexView.as_view(), name='index'),
+    path('authorize/', AuthorizeView.as_view(), name='authorize'),
+    path('oauth/callback/', CallbackView.as_view(), name='callback'),
+    path('deauthorize/', DeauthorizeView.as_view(), name='deauthorize'),
+]
