@@ -9,11 +9,14 @@ ENV PYTHONDONTWRITEBYTECODE=1
 # Turns off buffering for easier container logging
 ENV PYTHONUNBUFFERED=1
 
-# Install pip requirements
-COPY requirements.txt .
-RUN python -m pip install -r requirements.txt
 
-WORKDIR /app
+RUN mkdir -p src/python/
+# COPY python src/python/
+
+# Install pip requirements
+RUN python -m pip install -r src/python/test_tools/requirements.txt
+
+WORKDIR /src/
 COPY . /app
 
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
