@@ -16,9 +16,9 @@ RUN mkdir -p src/python/
 # Install pip requirements
 RUN python -m pip install -r src/python/test_tools/requirements.txt
 
-WORKDIR /src/yconrails/yconrails/
+WORKDIR /src/python/yconrails/yconrails/
 COPY . .
-COPY . /src/yconrails/yconrails/
+COPY . /src/python/yconrails/yconrails/
 
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
 # For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
