@@ -16,7 +16,7 @@ RUN mkdir -p src/python/
 # Install pip requirements
 RUN python -m pip install -r src/python/test_tools/requirements.txt
 
-WORKDIR /src/
+WORKDIR /src/yconrails/yconrails
 COPY . /app
 
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
