@@ -24,15 +24,4 @@ The goal is to create a robust, scalable and secure web application to provide s
 
 7. **Developer Experience:** Implement tools and practices that improve developer productivity and allow for quicker deployments. For example, simplifying the use of Webpack and JavaScript for faster deployments.
 
-**Deliverables:**
-
-1. **Infrastructure Code:** Terraform scripts for creating and managing the infrastructure on AWS. Dockerfiles for the application's containerization.
-
-2. **Application Code:** Well-structured and documented Ruby on Rails and React codebase for the startup incubation platform.
-
-3. **Documentation:** Comprehensive documentation of the infrastructure design, application architecture, deployment process, and developer tools. 
-
-4. **Security Audit Report:** A report from a penetration testing exercise against your applications.
-
-
 # Architecture
