@@ -1,29 +1,26 @@
-# To build the docker image, run the following command from the shell. This command must be run in
-# the "aws-doc-sdk-examples" directory, the parent directory of "python", in order to access the resources folder.
-#
-# 'docker build -f python/Dockerfile -t <a_docker_file_name> .'
+# For more information, please refer to https://aka.ms/vscode-docker-python
+FROM python:3.10-slim
 
-# syntax=docker/dockerfile:1
-# Status: Beta
-# GA updates: https://github.com/awsdocs/aws-doc-sdk-examples/issues/4125
-FROM python:3
+EXPOSE 8000
 
-RUN mkdir -p /src/python
-COPY python /src/python/
+# Keeps Python from generating .pyc files in the container
+ENV PYTHONDONTWRITEBYTECODE=1
 
-RUN python -m pip install -r src/python/test_tools/requirements.txt
+# Turns off buffering for easier container logging
+ENV PYTHONUNBUFFERED=1
 
-# Needed for keyspaces integration test.
-RUN curl https://certs.secureserver.net/repository/sf-class2-root.crt --output sf-class2-root.crt
+# Install pip requirements
+COPY requirements.txt .
+RUN python -m pip install -r requirements.txt
 
-WORKDIR /src/
+WORKDIR /app
+COPY . /app
 
-CMD ["bash"]
+# Creates a non-root user with an explicit UID and adds permission to access the /app folder
+# For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
+RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
+USER appuser
 
-# Run image with credentials:
-#   Windows:
-#     docker run -it --volume <user root>\.aws:/root/.aws <image ID>
-# Run all unit tests in the docker container:
-#   python -m python.test_tools.run_all_tests > test-run-unit-$(date +"%Y-%m-%d").out
-# Run all integration tests in the docker container:
-#   python -m python.test_tools.run_all_tests --integ > test-run-integ-$(date +"%Y-%m-%d").out
+# During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
+# File wsgi.py was not found. Please enter the Python path to wsgi file.
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "pythonPath.to.wsgi"]
