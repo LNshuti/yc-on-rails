@@ -2,9 +2,11 @@
 
 The goal is to create a robust, scalable and secure web application to provide services for startup founders. This application will allow startups to apply for funding, track progress, receive feedback, and collaborate with mentors.
 
-**Objective:**
+**Tools used**
 
-The main objective of this project is to build a secure, scalable, and maintainable infrastructure for the startup incubation platform using AWS, Docker, and Terraform, and develop the application using Ruby on Rails, Postgres, and React.
+1. Cloud storage and compute: AWS
+2. Deployment: Docker, and Terraform
+3. Application code: Ruby on Rails, Postgres, and React.
 
 **Steps:**
 
