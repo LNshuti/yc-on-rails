@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '3.2.2' # Specify your Ruby version
+ruby '2.6.10' # Specify your Ruby version
 
 
 gem 'sorbet', :group => :development
@@ -63,3 +63,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # -- Gemfile --
 gem 'aws-sdk-rails'
 gem 'aws-record', '~> 2.0'
+
+gem 'supabase'
